@@ -7,6 +7,6 @@
 
 #include "graph.h"
 
-void DFS(Graph* graph, int startingNode);
+bool DFS(Graph* graph, int startingNode);
 
 #endif //PROJEKT2_DFS_H

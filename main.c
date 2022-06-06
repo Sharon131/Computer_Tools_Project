@@ -42,15 +42,36 @@ int main(int argc, char* argv[]) {
 
     int V = _GetSingleParameter(file);
     int E = _GetSingleParameter(file);
+    int R = _GetSingleParameter(file);
     printf("Number of vertices read: %d\r\n", V);
     printf("Number of edges read: %d\r\n", E);
+    printf("Number of red vertices: %d\r\n", R);
 
     Graph graph;
     Graph_Initialise(&graph, V);
 
     char buffer[MAX_LINE_LENGTH];
+    /* Get red vertices */
+    for (int i=0;i<R;i++)
+    {
+        if (!fgets(buffer, MAX_LINE_LENGTH, file))
+        {
+            printf("");
+            exit(5);
+        }
+
+        int v = atoi(buffer) - 1;
+        Graph_MarkVertexAsRed(&graph, v);
+    }
+
+    bool red1 = graph.isRed[1];
+    bool red2 = graph.isRed[4];
+    bool red3 = graph.isRed[7];
+    printf("Red vertices read\r\n");
+
     for (int i=0;i<E;i++)
     {
+        memset(buffer, 0, MAX_LINE_LENGTH);
         if (fgets(buffer, MAX_LINE_LENGTH, file))
         {
             char *p = strtok(buffer, " ");
@@ -73,7 +94,15 @@ int main(int argc, char* argv[]) {
 
     // perform algorithm
 
-    DFS(&graph, 2);
+    if (DFS(&graph, 0))
+    {
+        printf("Given tree contains more than one red vertex on the same path. Unfortunately\r\n");
+    }
+    else
+    {
+        printf("Given tree does not contain more than one red vertex on the same path. Success!\r\n");
+    }
+
     Graph_Print(&graph);
 
     return 0;

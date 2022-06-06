@@ -10,7 +10,13 @@ void Graph_Initialise(Graph* graph, int verticesNo)
 {
     graph->verticesNo = verticesNo;
     graph->adjacencyList = calloc( verticesNo, sizeof(Node*) );
+    graph->isRed = calloc( verticesNo, sizeof(bool) );
     graph->iteration = calloc( verticesNo, sizeof(int) );
+}
+
+void Graph_MarkVertexAsRed(Graph* graph, int v)
+{
+    graph->isRed[v] = true;
 }
 
 void Graph_AddEdge(Graph* graph, int v1, int v2)

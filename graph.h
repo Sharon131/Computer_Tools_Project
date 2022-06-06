@@ -15,10 +15,12 @@ typedef struct node {
 typedef struct graph {
     Node** adjacencyList;
     int verticesNo;
+    bool* isRed;
     int* iteration;
 } Graph;
 
 void Graph_Initialise(Graph* graph, int verticesNo);
+void Graph_MarkVertexAsRed(Graph* graph, int v);
 void Graph_AddEdge(Graph* graph, int v1, int v2);
 Node* Graph_GetNeighbours(Graph* graph, int v);
 void Graph_Print(Graph* graph);

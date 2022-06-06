@@ -5,8 +5,12 @@
 #include "dfs.h"
 #include <stdlib.h>
 
-void DFS_recursive(Graph* graph, bool* visited, int currentNode, int iteration)
+bool DFS_recursive(Graph* graph, bool* visited, int currentNode, int iteration, bool wasRedVertex)
 {
+    if (graph->isRed[currentNode] && wasRedVertex)
+    {
+        return true;
+    }
     graph->iteration[currentNode] = iteration;
     visited[currentNode] = true;
     Node* neighbours = Graph_GetNeighbours(graph, currentNode);
@@ -15,15 +19,19 @@ void DFS_recursive(Graph* graph, bool* visited, int currentNode, int iteration)
     {
         if (!visited[neighbours->number])
         {
-            DFS_recursive(graph, visited, neighbours->number, iteration + 1);
+            if (DFS_recursive(graph, visited, neighbours->number, iteration + 1, wasRedVertex | graph->isRed[currentNode]))
+            {
+                return true;
+            }
         }
         neighbours = neighbours->next;
     }
+    return false;
 }
 
-void DFS(Graph* graph, int startingNode)
+bool DFS(Graph* graph, int startingNode)
 {
     bool* visited = calloc( graph->verticesNo, sizeof(bool) );
 
-    DFS_recursive(graph, visited, startingNode, 0);
+    return DFS_recursive(graph, visited, startingNode, 0, false);
 }
