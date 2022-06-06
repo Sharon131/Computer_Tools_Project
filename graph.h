@@ -5,14 +5,17 @@
 #ifndef PROJEKT2_GRAPH_H
 #define PROJEKT2_GRAPH_H
 
+#include <stdbool.h>
+
 typedef struct node {
-    int number;
     struct node* next;
+    int number;
 } Node;
 
 typedef struct graph {
     Node** adjacencyList;
     int verticesNo;
+    int* iteration;
 } Graph;
 
 void Graph_Initialise(Graph* graph, int verticesNo);

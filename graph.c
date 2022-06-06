@@ -10,6 +10,7 @@ void Graph_Initialise(Graph* graph, int verticesNo)
 {
     graph->verticesNo = verticesNo;
     graph->adjacencyList = calloc( verticesNo, sizeof(Node*) );
+    graph->iteration = calloc( verticesNo, sizeof(int) );
 }
 
 void Graph_AddEdge(Graph* graph, int v1, int v2)
@@ -42,7 +43,7 @@ void Graph_Print(Graph* graph)
 {
     for(int i=0;i<graph->verticesNo;i++)
     {
-        printf("Vertex: %d\r\n", i + 1);
+        printf("Vertex: %d, iter: %d\r\n", i + 1, graph->iteration[i]);
 
         Node* node = graph->adjacencyList[i];
 

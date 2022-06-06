@@ -2,19 +2,9 @@
 #include <stdio.h>
 #include <string.h>
 #include "graph.h"
+#include "dfs.h"
 
 #define MAX_LINE_LENGTH     8
-
-
-void DFS_recursive()
-{
-
-}
-
-void DFS()
-{
-
-}
 
 int _GetSingleParameter(FILE* file)
 {
@@ -83,7 +73,8 @@ int main(int argc, char* argv[]) {
 
     // perform algorithm
 
-
+    DFS(&graph, 2);
+    Graph_Print(&graph);
 
     return 0;
 }
